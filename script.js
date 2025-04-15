@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded'); // Для отладки
     const video = document.getElementById('memeVideo');
-    const blocker = document.getElementById('blocker');
+    const lemonBtn = document.getElementById('lemonBtn');
 
-    if (!video || !blocker) {
-        console.error('Element not found:', { video, blocker });
+    if (!video || !lemonBtn) {
+        console.error('Element not found:', { video, lemonBtn });
         return;
     }
 
@@ -12,17 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const isReloaded = sessionStorage.getItem('reloaded');
 
     if (!isReloaded) {
-        // Первая загрузка: ждём касания экрана
-        console.log('First load, waiting for touch');
-        document.body.addEventListener('click', () => {
-            console.log('Screen touched, reloading page');
+        // Первая загрузка: ждём клика на лимон
+        console.log('First load, waiting for lemon click');
+        lemonBtn.addEventListener('click', () => {
+            console.log('Lemon clicked, reloading page');
             sessionStorage.setItem('reloaded', 'true');
             window.location.reload();
-        }, { once: true });
+        });
     } else {
         // Вторая загрузка: запускаем видео
         console.log('Second load, starting video');
-        blocker.style.display = 'none';
+        lemonBtn.style.display = 'none';
         video.style.display = 'block';
         video.volume = 0;
         video.muted = false;
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         video.play().then(() => {
             console.log('Video started');
             increaseVolume();
-            // Очищаем флаг, чтобы цикл начинался заново
+            // Очищаем флаг для следующего раза
             sessionStorage.removeItem('reloaded');
         }).catch(error => {
             console.error('Playback error:', error);
