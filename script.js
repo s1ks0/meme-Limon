@@ -1,15 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('memeVideo');
-    video.volume = 0;
+    const prompt = document.getElementById('prompt');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
 
-    video.play().catch(error => {
-        console.log('Autoplay blocked:', error);
-        video.muted = true;
+    function startVideo() {
+        prompt.style.display = 'none';
+        video.style.display = 'block';
+        video.volume = 0;
+
         video.play().then(() => {
-            video.muted = false;
             increaseVolume();
+        }).catch(error => {
+            console.log('Playback error:', error);
         });
-    });
+    }
+
+    yesBtn.addEventListener('click', startVideo);
+    noBtn.addEventListener('click', startVideo);
 
     function increaseVolume() {
         let volume = 0;
@@ -24,5 +32,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(updateVolume);
     }
-    increaseVolume();
 });
