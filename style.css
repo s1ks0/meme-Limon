@@ -14,15 +14,12 @@ video {
 }
 
 .loader {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
 }
 
 .loader p {
     margin: 0;
-    font-size: 18px;
-    color: black;
+    font-size: 24px;
+    font-weight: bold;
 }
