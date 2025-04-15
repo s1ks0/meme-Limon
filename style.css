@@ -13,13 +13,12 @@ video {
     max-width: 800px;
 }
 
-.loader {
-    text-align: center;
-    color: white;
-}
-
-.loader p {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
+.blocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 1000;
 }
