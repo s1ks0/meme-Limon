@@ -8,20 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Проверяем, была ли страница уже загружена
-    const isReloaded = sessionStorage.getItem('reloaded');
-
-    if (!isReloaded) {
-        // Первая загрузка: ждём клика на лимон
-        console.log('First load, waiting for lemon click');
-        lemonBtn.addEventListener('click', () => {
-            console.log('Lemon clicked, reloading page');
-            sessionStorage.setItem('reloaded', 'true');
-            window.location.reload();
-        });
-    } else {
-        // Вторая загрузка: запускаем видео
-        console.log('Second load, starting video');
+    // Ждём клика на лимон
+    lemonBtn.addEventListener('click', () => {
+        console.log('Lemon clicked, starting video');
         lemonBtn.style.display = 'none';
         video.style.display = 'block';
         video.volume = 0;
@@ -30,18 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
         video.play().then(() => {
             console.log('Video started');
             increaseVolume();
-            // Очищаем флаг для следующего раза
-            sessionStorage.removeItem('reloaded');
         }).catch(error => {
             console.error('Playback error:', error);
             video.muted = true;
             video.play().then(() => {
                 video.muted = false;
                 increaseVolume();
-                sessionStorage.removeItem('reloaded');
             });
         });
-    }
+    });
 
     function increaseVolume() {
         console.log('Starting volume increase');
