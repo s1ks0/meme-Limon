@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         video.volume = 0;
         video.muted = false;
 
+        // Запускаем видео
         video.play().then(() => {
             console.log('Video started');
             increaseVolume();
@@ -26,6 +27,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 video.muted = false;
                 increaseVolume();
             });
+        });
+
+        // Поддержка фонового воспроизведения
+        video.addEventListener('pause', () => {
+            if (document.hidden && video.currentTime < video.duration) {
+                console.log('Attempting to resume playback in background');
+                video.play().catch(error => {
+                    console.error('Background resume failed:', error);
+                });
+            }
+        });
+
+        // Обработка сворачивания страницы
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && !video.paused) {
+                console.log('Page hidden, keeping video playing');
+            } else if (!document.hidden && video.paused) {
+                console.log('Page visible, resuming video');
+                video.play().catch(error => {
+                    console.error('Resume failed:', error);
+                });
+            }
         });
     });
 
