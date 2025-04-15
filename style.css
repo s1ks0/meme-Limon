@@ -5,8 +5,39 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: Arial, sans-serif;
 }
+
 video {
     width: 100%;
     max-width: 800px;
+}
+
+.prompt {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.prompt p {
+    margin: 0 0 15px;
+    font-size: 18px;
+    color: black;
+}
+
+.prompt button {
+    background: #ffeb3b;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    margin: 0 10px;
+}
+
+.prompt button:hover {
+    background: #fbc02d;
 }
