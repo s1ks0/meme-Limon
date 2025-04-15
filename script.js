@@ -12,10 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const isReloaded = sessionStorage.getItem('reloaded');
 
     if (!isReloaded) {
-        // Первая загрузка: устанавливаем флаг и перезагружаем
+        // Первая загрузка: устанавливаем флаг и перезагружаем через 1 секунду
         console.log('First load, reloading page');
         sessionStorage.setItem('reloaded', 'true');
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000); // Задержка 1 секунда, как на sndtag.ru
     } else {
         // Вторая загрузка: запускаем видео
         console.log('Second load, starting video');
@@ -27,12 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
         video.play().then(() => {
             console.log('Video started');
             increaseVolume();
+            // Очищаем флаг, чтобы цикл начинался заново при следующем визите
+            sessionStorage.removeItem('reloaded');
         }).catch(error => {
             console.error('Playback error:', error);
             video.muted = true;
             video.play().then(() => {
                 video.muted = false;
                 increaseVolume();
+                sessionStorage.removeItem('reloaded');
             });
         });
     }
